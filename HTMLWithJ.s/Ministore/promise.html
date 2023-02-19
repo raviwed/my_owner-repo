@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img id="image" src="https://i.giphy.com/media/l3nWhI38IWDofyDrW/200w.webp" alt="">
+</body>
+</html>
+<script>
+  let  image=document.querySelector("#image")
+
+    function getData(){
+
+     return true
+
+    }
+    
+myPromise=new Promise(function(resolve ,reject){
+   data = false;
+   
+ setTimeout(function(){
+    data = getData()
+  if(data){
+    resolve('sweets')
+  }else{
+    reject('chappal')
+  }
+
+ },3000)
+
+})
+
+
+myPromise.then(function(res){
+    image.src="https://i.giphy.com/media/Q81NcsY6YxK7jxnr4v/200w.webp"
+})
+myPromise.catch(function(err){
+    image.src="https://i.giphy.com/media/l3nWhI38IWDofyDrW/200w.webp"
+})
+
+</script>

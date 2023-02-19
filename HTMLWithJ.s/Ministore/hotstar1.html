@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width,initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width:200px;
+           
+        }
+        #movies{
+            border: solid 1px black;
+            height:200px;
+            width:205px;
+            overflow:scroll;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="query" placeholder="Enter" oninput="debounce(main , 1000)">
+    <div id="movies"></div>
+</body>
+</html>
+<script>
+    movie_div=document.querySelector("#movies")
+    let id;
+  async  function main(){
+    try{
+        let query = document.querySelector("#query").value;
+        let res =await fetch(`http://www.omdbapi.com/?apikey=e2035b38&s=${query}`)
+        let data = await res.json();
+        console.log('data:',data)
+        actual_data = data.Search;
+        if(actual_data!=undefined){
+            appendMovies(actual_data);
+        }
+    }catch(err){
+       console.log('err:',err);
+    }
+}
+    function appendMovies(data){
+        movie_div.innerHTML=null;
+     data.forEach(function(el){
+      let p= document.createElement("p")
+      p.innerText=el.Title
+       movie_div.append(p)
+     })
+
+    }
+    function debounce(func,delay){
+        if(id){
+            clearTimeout(id)
+        }
+        id=setTimeout(function(){
+            func()
+        },delay)
+
+    }
+
+
+</script>
