@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+    <select  id="sortName">
+      <option>sort By name</option>
+      <option value="Ascending">Ascending</option>
+      <option value="Descending">Descending</option>
+    </select>
+    <select id="filter">
+      <option>select job role</option>
+      <option value="FrontEnd">FrontEnd</option>
+      <option value="BackEnd">BackEnd</option>
+      <option value="FSD">FSD</option>
+    </select>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job applied</th>
+            <th>Salary expected</th>
+            <th>Add to bookmark</th>
+          </tr>
+        </thead>
+        <tbody id="body">
+          <!-- Append your output to tbody -->
+        </tbody>
+      </table>
+    </main>
+  </body>
+  <script>
+    //you need to code here
+  let appliedjobs=JSON.parse(localStorage.getItem("jobList"))||[];
+ let bookmarkArr=JSON.parse(localStorage.getItem("bookmark"))||[];
+ displaytable(appliedjobs)
+ document.querySelector("#sortName").addEventListener("change",handleNamesort)
+document.querySelector("#filter").addEventListener("change",Filterthelist)
+function Filterthelist(){
+  selected = document.querySelector("#filter").value;
+  let filteredlist=appliedjobs.filter(function(ele){
+    return ele.personjobrole ==selected;
+  });
+  displaytable(filteredlist)
+}
+function handleNamesort(){
+ selected= document.querySelector("#sortName").value;
+  if(selected=="Ascending"){
+    appliedjobs.sort(function(a,b){
+      x=a.personName.toUpperCase();
+      y=b.personName.toUpperCase();
+      if(x>y) return 1;
+      if(x<y) return -1;
+      return 0;
+   });
+   displaytable(appliedjobs)
+  }
+  if(selected=="Descending"){
+    appliedjobs.sort(function(a,b){
+      x=a.personName.toUpperCase();
+      y=b.personName.toUpperCase();
+      if(x>y) return -1;
+      if(x<y) return 1;
+      return 0;
+   });
+   displaytable(appliedjobs)
+  }
+
+ }
+ function displaytable(appliedjobs){
+  document.querySelector("tbody").innerHTML="";
+  appliedjobs.forEach(function(elem){
+    let row=document.createElement("tr");
+    let col1=document.createElement("td");
+    col1.innerText=elem.personName;
+    let col2=document.createElement("td");
+    col2.innerText=elem.personEmail;
+    let col3=document.createElement("td");
+    col3.innerText=elem.personjobrole;
+    let col4=document.createElement("td");
+    col4.innerText=elem.personsalary;
+    let col5=document.createElement("td");
+     col5.innerText="BookMark";
+     col5.style.color="teal";
+     col5.addEventListener("click",function(){
+       bookmark(elem)
+     });
+     row.append(col1,col2,col3,col4,col5);
+     document.querySelector("tbody").append(row); 
+  });
+  function bookmark(elem){
+    bookmarkArr.push(elem)
+    localStorage.setItem("bookmark",JSON.stringify(bookmarkArr))
+   }
+ }
+  
+
+ 
+  </script>
+</html>
