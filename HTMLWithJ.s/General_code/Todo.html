@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="Add todo" id="todo">
+    <button onclick="addTodo()">ADD</button>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    class Todo{
+        #todo;
+        constructor(){
+            this.#todo=[];
+        }
+        set addTodo(title){
+            let newItem={
+                title:title,
+                id :Date.now()+title,
+                status:false,
+            };
+            this.#todo.push(newItem);
+        }
+        get todos(){
+            return this.#todo;
+        }
+        DeleteTodo(id){
+         this.#todo=this.#todo.filter((el)=>el.id!==id)
+        }
+        Toggel(id){
+        this.#todo =this.#todo.map((todo)=>
+            todo.id ===id ?{...todo,status : !todo.status}:todo
+        )
+        }
+    }
+let todo =new Todo();
+ let addTodo=()=>{
+    let task =document.getElementById("todo").value;
+    todo.addTodo=task;
+    console.log(todo.todos)
+    renderDom(todo.todos)
+ }
+renderDom=(todos)=>{
+    let container =document.querySelector("#container")
+    container.innerHTML=null
+    todos.forEach(({id,title,status})=>{
+      let div=document.createElement("div")
+      let h3=document.createElement("h3")
+      h3.innerText=title
+      let h2=document.createElement("h2")
+      h2.innerText=status
+      let p =document.createElement("p")
+      p.innerText=id
+     let btn1=document.createElement("button")
+     btn1.innerText="Delete"
+     btn1.onclick=()=>{
+        todo.DeleteTodo(id)
+        renderDom(todo.todos)
+     }
+     let btn2=document.createElement("button")
+     btn2.innerText="Toggle"
+     btn2.onclick=()=>{
+        todo.Toggel(id)
+        renderDom(todo.todos)
+     }
+      div.append(h3,p,h2,btn1,btn2)
+      container.append(div)
+    })
+}
+
+
+
+</script>
