@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form  id="products">
+        <input type="text" id="type" placeholder="Type">
+        <input type="text" id="desc" placeholder="discription">
+        <input type="text" id="price" placeholder="Price" >
+        <input type="url" id="image" placeholder="image_url">
+        <input type="text" id="toggle" placeholder="condition">
+       <input type="submit" id="add_products" value="addproducts">
+    </form>
+    
+</body>
+</html>
+<script>
+    
+    let form= document.querySelector("#products").addEventListener("submit",(event)=>{
+        event.preventDefault();
+    let type =document.querySelector("#type").value;
+    let desc=document.querySelector("#desc").value;
+    let price = document.querySelector("#price").value;
+    let image=document.querySelector("#image").value;
+    let sold=document.querySelector("#toggle").value;
+    let p =new products(type,desc,price,image,sold)
+    console.log(p)
+    product=JSON.parse(localStorage.getItem("products"))||[]
+    product.push(p)
+    product=localStorage.setItem("products",JSON.stringify(product))   
+    })
+    function products(type,desc,price,image,sold){
+        this.type=type;
+        this.desc=desc;
+        this.price=price;
+        this.image=image;
+        this.sold=sold;
+    }
+    
+
+
+
+</script>

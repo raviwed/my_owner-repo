@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    //https://jsonmock.hackerrank.com/api/articles
+ let containrer=document.querySelector("#container").value
+    var fetch_arr=[];
+    for(let i=1;i<=5;i++){
+        f=fetch(`https://jsonmock.hackerrank.com/api/articles?page=${i}`).then((res)=>res.json())
+        fetch_arr.push(f)
+    }
+   
+    let getData=async()=>{
+        try{
+           let data= await Promise.all(fetch_arr)
+            console.log(data) 
+            let all_arr=[];
+           for(let x of data ){
+             all_arr.push(...x.data)
+           }
+           console.log(all_arr)
+           render(all_arr)
+        }catch(err){
+        console.log(err.message)
+        }
+       
+    }
+    getData()
+    let render=(data)=>{
+     data.forEach(({author,created_at,num_comments,url,title})=>{
+       let div=document.createElement("div")
+       let aut =document.createElement("h2")
+       aut.innerText=author
+       let creat =document.createElement("h4")
+       creat.innerText=created_at
+       let comment =document.createElement("h5")
+       comment.innerText=num_comments
+       let name=document.createElement("h1")
+       name.innerText=title
+       
+       div.append(title,aut,creat,comment)
+       container.append(div)
+     })
+    }
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <a href="pro1.html"><button>show</button></a>
+</head>
+<body>
+   <button onclick="show()">start</button>
+   <button onclick="pause()">pause</button>
+   <div id="container"></div>
+</body>
+</html>
+<script>
+    let id;
+    count=0
+    function show(){
+        image=JSON.parse(localStorage.getItem("images"))||[]
+        let cont=document.querySelector("#container")
+        cont.innerHTML=null
+        img=document.createElement("img")
+        img.src=image[count]
+        cont.append(img)
+        id=setInterval(function(){
+            if(count===image.length){
+                count=0
+            }
+        img.src=image[count]
+          count++;
+          cont.append(img)
+        },3000)
+    }
+
+    function pause(){
+      clearInterval(id)
+    }
+
+
+</script>

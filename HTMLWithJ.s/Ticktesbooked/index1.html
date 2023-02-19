@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form  id="form" onsubmit="data(event)">
+        <input id="image" type="url" placeholder="image URL">
+        <input id="name" type="text" placeholder="name">
+        <input id="releaseDate" type="text" placeholder="releseDate">
+        <input id="rating" type="text" placeholder="IMBD rating">
+        <input id="cart" type="submit" value="BookNow">
+    </form>
+</body>
+</html>
+<script>
+    function movie(i,n,r,ra) {
+     this.image=i;
+     this.name=n;
+     this.releaseDate=r;
+     this.rating=`rating-${ra}`;
+     
+    } 
+    function data(event){
+        event.preventDefault()
+        raja=JSON.parse(localStorage.getItem("cenima"))||[];
+        form=document.querySelector("#form")
+        image=form.image.value
+        name=form.name.value
+        releaseDate=form.releaseDate.value
+        rating=form.rating.value
+        s= new movie(image,name,releaseDate,rating)
+        raja.push(s);
+        localStorage.setItem("cenima",JSON.stringify(raja))
+        document.querySelector("#form").reset()
+    }
+
+   
+
+
+
+
+</script>

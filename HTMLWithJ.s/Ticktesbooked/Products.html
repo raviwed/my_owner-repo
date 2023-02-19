@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    
+    appendproducts=()=>{
+     let product=JSON.parse(localStorage.getItem("products"))||[]
+    let container=document.querySelector("#container")
+        container.innerHTML=null;
+        product.forEach(( {desc,image,price,type,sold},index)=>{
+         let div =document.createElement("div")
+         let imag =document.createElement("img")
+         imag.src=image
+         let h=document.createElement("h3")
+           h.innerText=desc
+         let p=document.createElement("h4")
+         let btn=document.createElement("button")
+         btn.innerText="remove"
+        let s=document.createElement("h3")
+        s.innerText=sold
+        sold ? (s.style.background="green"):0;
+         btn.addEventListener("click",()=>{
+            remove(index)
+         })
+        let toggle_btn=document.createElement("button")
+        toggle_btn.innerText="toggle"
+        toggle_btn.addEventListener("click",()=>{
+            togge(index)
+        })
+         p.innerText=price
+         div.append(imag,h,p,s,btn,toggle_btn)
+         container.append(div)
+        })
+       
+     }
+     appendproducts()
+      remove=(index)=>{
+       product=JSON.parse(localStorage.getItem("products"))||[]
+       product.splice(index,1)
+       localStorage.setItem("products",JSON.stringify(product))
+       appendproducts()
+     }
+    togge=(id)=>{
+      let product=JSON.parse(localStorage.getItem("products"))||[]
+      product[id].sold=!product[id].sold;
+      localStorage.setItem("products",JSON.stringify(product))
+      appendproducts();
+    }
+
+
+</script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: grid;
+            grid-template-columns:repeat(3,1fr) ;
+            grid-template-rows:repeat(3,1fr) ;
+            border:1px solid red;
+            width:100%;
+            gap:20px;
+
+        }
+        #container>div>img:hover{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+     h1{
+        text-align: center;
+     }
+     #take:hover{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+     }
+    </style>
+</head>
+<body>
+    <h1>movie center</h1>
+    <div id="container">
+
+    </div>
+</body>
+</html>
+<script>
+    raja=JSON.parse(localStorage.getItem("cenima"))||[];
+    raja.forEach(function(el){
+        con=document.querySelector("#container")
+        div=document.createElement("div")
+       img=document.createElement("img")
+       img.setAttribute("src",el.image)
+       h2=document.createElement("h2")
+       h2.innerText=el.name
+       p=document.createElement("p")
+       p.innerText=el.releaseDate
+       p1=document.createElement("p")
+       p1.innerText=el.rating
+       btn=document.createElement("button")
+       btn.innerText="book now"
+       btn.style.background="red"
+       btn.style.color="white"
+       btn.style.border="0px"
+       btn.setAttribute("id","take")
+       div.append(img,h2,p,p1,btn)
+       con.append(div)
+    })
+
+
+</script>

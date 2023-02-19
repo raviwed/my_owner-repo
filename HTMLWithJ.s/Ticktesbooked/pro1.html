@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <a href="slideshow.html"><button>slideshow</button></a>
+</head>
+<body>
+    <h2>Album/slide show creator</h2>
+    <input type="url" id="url" placeholder="Enter url">
+    <button onclick="start()">Submit image</button>
+</body>
+</html>
+<script>
+    function start(){
+     url=document.getElementById("url").value
+     images=JSON.parse(localStorage.getItem("images"))||[]
+     images.push(url)
+     localStorage.setItem("images",JSON.stringify(images))
+    }
+</script>
