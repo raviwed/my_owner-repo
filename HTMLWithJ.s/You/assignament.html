@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"  id="Username">
+    <input type="text" id="Password">
+    <button onclick="signup()">signUp</button>
+</body>
+</html>
+<script>
+    let users=[];
+    class user{
+        #password
+        constructor(){
+            this.organization="masai"
+        }
+        #validateUsername(username){
+            let value=username.includes("@")? false:true;
+            return value; 
+        }
+        #validatepassword(password){
+            let value = password.includes("123")? false :true;
+            return value;
+        }
+
+         signUp(username,password){
+            let isvalidated= this.#validateUsername(username)&& this.#validatepassword(password)
+            if(isvalidated){
+                this.username=username;
+                this.password=password;
+                console.log("User register sucessfully")
+                users.push(this)
+            }else{
+                console.log("Please enter correct details")
+            }
+
+         }
+         login(username,password){
+            if(username===this.username&&password==this.#password){
+                console.log("login sucuessfully")
+            }else{
+                console.log("Authenticaton failed")
+            }
+         }
+
+
+    }
+   
+ class student extends user{
+    constructor(){
+        super()
+        this.numAssignements=0;
+    }
+
+    submitAssignement(){
+        this.numAssignements++
+        console.log("%c Accepted  ","color:green  ")
+    }
+ }
+class Admin extends user{
+    constructor(){
+        super();
+
+    }
+     removeuser(){
+        users=users.filter((element)=>{
+           return element.username!=username
+        });
+     }
+
+
+
+}
+
+function signup(){
+    let username=document.getElementById("Username").value
+    let password=document.getElementById("Password").value
+    s1=new student()
+    s1.signUp(username,password)
+    console.log(users)
+
+}
+
+
+
+
+
+
+</script>
