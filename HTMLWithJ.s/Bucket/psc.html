@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="enter the text" id="query" oninput="getData()">
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    
+    let con=document.querySelector("#container")
+    async function getData(){
+       let q=document.querySelector("#query").value;
+       try{
+        let res=await fetch(` https://swapi.dev/api/people/?search=${q}`)
+        let data = await res.json()
+        console.log(data)
+        actual_Data=data.results
+        if(actual_Data!=undefined){
+            appenditems(actual_Data)
+        }
+       }catch(err){
+          console.log('err:',err)
+       } 
+
+    } 
+   function appenditems(data){
+    data.forEach(function(el,index){
+       let name=document.createElement("p")
+        name.innerText=el.name
+        con.append(name)
+        name.addEventListener("click",function(){
+           localStorage.setItem("jeev",JSON.stringify(el.name))
+            window.location.href="psc1.html"
+        })
+    })
+    
+   }
+    
+
+
+</script>

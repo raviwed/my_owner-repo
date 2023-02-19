@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    class Items{
+        constructor(){
+           this.s=[]
+          this.length=0
+        }
+        push(value){
+           this.s.push(value)
+           this.length++
+        }
+        pop(value){
+           this.s.pop(value)
+           this.length--
+        }
+      }
+   
+   let s1=new Items();
+   s1.push(1)
+   s1.push(2)
+   s1.push(3)
+   console.log(s1)
+   s1.pop()
+   console.log(s1)
+</script>
