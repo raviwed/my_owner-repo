@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      #navbar{
+         display: flex;
+         justify-content: space-between;
+         background-color:beige;
+        }
+        #container{
+          display: grid;
+          grid-template-columns: repeat(3,1fr);
+          grid-template-rows: repeat(3,1fr);
+          gap:20px;
+          padding: 30px;
+        }
+    </style>
+</head>
+<body>
+   <div id="navbar"></div>
+   <div id="container"></div> 
+</body>
+</html>
+<script>
+     append=()=>{
+        let taskArr=JSON.parse(localStorage.getItem("prime"))||[]
+        let cine_div=document.querySelector("#container")
+          cine_div.innerHTML=null;
+        taskArr.forEach((el,index)=>{
+            div=document.createElement("div")
+            let p= document.createElement("p")
+             p.innerText=el.Title
+            let image=document.createElement("img")
+             image.setAttribute("src",el.Poster)
+            let year=document.createElement("p")
+             year.innerText=el.Year
+            let type=document.createElement("p")
+             type.innerText=el.Type
+             let btn=document.createElement("button")
+             btn.innerText="Delete"
+             btn.style.color="white";
+             btn.style.background="red";
+             btn.style.border="0px";
+             btn.style.borderRadius="10px";
+             btn.style.padding="10px"
+             btn.addEventListener("click",()=>{
+                remove(index)
+             })
+             div.append(image,p,year,type,btn)
+             cine_div.append(div) 
+        })
+     }
+     append()
+     remove=(index)=>{
+        taskArr=JSON.parse(localStorage.getItem("prime"))||[]
+        taskArr.splice(index,1)
+        localStorage.setItem("prime",JSON.stringify(taskArr))
+        append()
+     }
+</script>
+<script type="module">
+   import navbar from "./navbar.js"
+   let nav= document.querySelector("#navbar")
+   nav.innerHTML=navbar()
+ </script>
