@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #movies{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-template-rows: repeat(3,1fr);
+        }
+    </style>
+</head>
+<body>
+    <button onclick="according()">sortLH</button> <button onclick="acc1()">sortHL</button>
+    <input type="text" placeholder="enter movie" id="query" oninput="debounce(main,1000)">
+    <div id="movies"></div>
+</body>
+</html>
+<script>
+    movie_div=document.querySelector("#movies")
+        let id;
+      async  function main(){
+        try{
+            let query = document.querySelector("#query").value;
+            let res =await fetch(`http://www.omdbapi.com/?apikey=e2035b38&s=${query}`)
+            let data = await res.json();
+            console.log('data:',data)
+            actual_data = data.Search;
+            if(actual_data!=undefined){
+                appendMovies(actual_data);
+            } else {
+                let arr = [];
+                let obj = {};
+                obj.Poster = "https://i.giphy.com/media/l3nWhI38IWDofyDrW/200w.webp";
+                arr.push(obj)
+                appendMovies(arr);
+            }
+        }catch(err){
+           console.log('err:',err);
+        }
+    }
+        function appendMovies(data){
+            movie_div.innerHTML=null;
+         data.forEach(function(el){
+          div=document.createElement("div")
+          let p= document.createElement("p")
+          image=document.createElement("img")
+          image.setAttribute("src",el.Poster)
+          p.innerText=el.Title?el.Title:"";
+          year=document.createElement("p")
+          year.innerText=el.Year?el.Year:"";
+          type=document.createElement("p")
+          type.innerText=el.Type?el.Type:"";
+           div.append(image,p,year,type)
+           movie_div.append(div)
+           
+         })
+
+        }
+        function debounce(func,delay){
+            if(id){
+                clearTimeout(id)
+            }
+            id=setTimeout(function(){
+                func()
+            },delay)
+
+        }
+       
+       function according(){
+       let example=actual_data.sort(function(a,b){
+           return a.Year-b.Year
+         })
+         appendMovies(example)
+       }
+
+        function acc1(){
+         let exam=actual_data.sort(function(a,b){
+            return b.Year-a.Year
+         })
+          appendMovies(exam)
+        }
+</script>
