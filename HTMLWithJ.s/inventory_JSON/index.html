@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="navbar">
+      <h1>Admin Panel</h1>
+    </div>
+    <!-- 1. Product form input boxes will have IDs as "name", "price", "description", "delivery" & "image" respectively.
+ 2. Add Product button ID :- "add_product".
+ 3. Sort Low to High button ID :- "sort-low-to-high"
+ 4. Sort High to Low button ID :- "sort-high-to-low"
+ 5. Price > 4000 button ID :-  "greater-than"
+ 6. Price < = 4000 button ID :- "less-than"
+ 7. All the products will be appended inside div with ID :- "container".
+ 8. Every product card will have class :- "item",
+ 9. The price in every card will have class :- "product_price" ,
+ NOTE:- Show only price amount in number, no extra text should be there.
+ 10.The delivery in every card will have class :- "product_delivery" 
+ 11. The remove button will have class :- "remove_item",
+ 12. The update button will have class :- "update_price" -->
+
+  <h1>Add Products</h1>
+  <input type="text" placeholder="enter_name" id="name">
+ <input type="number" placeholder="enter_price" id="price">
+ <input type="text" placeholder="enter_description" id="description" >
+ <input type="date" placeholder="enter_adders" id="delivery">
+ <input type="url" placeholder="enter_image" id="image">
+ <button id="add_product">ADD Products</button>
+ <h2>Sort Based on Prices</h2>
+ <button id="sort-low-to-high">sort-low-to-high</button>
+ <button id="sort-high-to-low">sort-high-to-low</button>
+ <h2>Filter By Price</h2>
+ <button id="greater-than">Price > 4000 </button>
+ <button id="less-than">Price < = 4000</button>
+ <div id="container"></div>
+  </body>
+</html>
+<script src="./main.js"></script>
